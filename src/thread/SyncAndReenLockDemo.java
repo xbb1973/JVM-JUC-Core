@@ -23,8 +23,6 @@ public class SyncAndReenLockDemo {
             }
         }, "C").start();
     }
-
-
 }
 
 class ShareResource {

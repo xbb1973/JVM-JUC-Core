@@ -5,12 +5,12 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class ReentrantLockDemo {
     public static void main(String[] args) {
-        Phone phone=new Phone();
+        Phone phone = new Phone();
         syncTest(phone);
         System.out.println();
 
-        Thread t3=new Thread(phone);
-        Thread t4=new Thread(phone);
+        Thread t3 = new Thread(phone);
+        Thread t4 = new Thread(phone);
         t3.start();
         t4.start();
 
@@ -18,55 +18,62 @@ public class ReentrantLockDemo {
 
     private static void syncTest(Phone phone) {
 
-        new Thread(()->{
-            try{
+        new Thread(() -> {
+            try {
                 phone.sendSMS();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        },"t1").start();
+        }, "t1").start();
 
-        new Thread(()->{
-            try{
+        new Thread(() -> {
+            try {
+                // phone.sendEmail();
                 phone.sendSMS();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        },"t2").start();
+        }, "t2").start();
     }
 }
-class Phone implements Runnable{
+
+class Phone implements Runnable {
     //Synchronized TEST
 
-    public synchronized void sendSMS(){
-        System.out.println(Thread.currentThread().getId()+"\t"+"sendSMS()");
+    public synchronized void sendSMS() {
+        System.out.println(Thread.currentThread().getId() + "\t" + "sendSMS()");
         sendEmail();
     }
-    public synchronized void sendEmail(){
-        System.out.println(Thread.currentThread().getId()+"\t"+"sendEmail()");
+
+    public synchronized void sendEmail() {
+        System.out.println(Thread.currentThread().getId() + "\t" + "sendEmail()");
     }
 
     //Reentrant TEST
 
-    Lock lock=new ReentrantLock();
+    Lock lock = new ReentrantLock();
+    // Lock lock = new NoReentrantLock();
+
     @Override
     public void run() {
         get();
     }
-    public void get(){
+
+    public void get() {
         lock.lock();
-        try{
-            System.out.println(Thread.currentThread().getId()+"\t"+"get()");
+        try {
+            System.out.println(Thread.currentThread().getId() + "\t" + "get()");
             set();
-        }finally {
+        } finally {
             lock.unlock();
         }
     }
-    public void set(){
+
+    public void set() {
         lock.lock();
-        try{
-            System.out.println(Thread.currentThread().getId()+"\t"+"set()");
-        }finally {
+        try {
+            System.out.println(Thread.currentThread().getId() + "\t" + "set()");
+        } finally {
             lock.unlock();
         }
     }
