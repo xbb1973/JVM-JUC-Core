@@ -4,9 +4,19 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 1、队列
+ *
+ * 2、阻塞队列
+ *  2-1、阻塞队列的优点？
+ *
+ *  2-2、不得不阻塞，如何管理？
+ *
+ *
+ */
 public class BlockingQueueDemo {
     public static void main(String[] args) throws InterruptedException {
-        BlockingQueue<String> blockingQueue = new ArrayBlockingQueue<String>(3);
+        BlockingQueue<String> blockingQueue = new ArrayBlockingQueue<String>(4);
         addAndRemove(blockingQueue);
         offerAndPoll(blockingQueue);
         putAndTake(blockingQueue);
