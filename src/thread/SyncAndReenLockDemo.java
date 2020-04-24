@@ -4,27 +4,36 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * A->B->C
+ * AA 5 BB 10 CC 15
+ * 紧接着
+ * AA 5 BB 10 CC 15
+ */
 public class SyncAndReenLockDemo {
     public static void main(String[] args) {
         ShareResource shareResource = new ShareResource();
         new Thread(() -> {
-            for (int i = 0; i < 10; i++) {
-                shareResource.print5();
+            for (int i = 0; i < 2; i++) {
+                shareResource.print5(); // 线程 操作 资源类
             }
         }, "A").start();
         new Thread(() -> {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 2; i++) {
                 shareResource.print10();
             }
         }, "B").start();
         new Thread(() -> {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 2; i++) {
                 shareResource.print15();
             }
         }, "C").start();
     }
 }
 
+/**
+ * 资源类
+ */
 class ShareResource {
     private int number = 1;
     private Lock lock = new ReentrantLock();

@@ -31,22 +31,27 @@ public class BlockingQueueDemo {
     }
 
     private static void putAndTake(BlockingQueue<String> blockingQueue) throws InterruptedException {
-        blockingQueue.put("a");
-        blockingQueue.put("b");
-        blockingQueue.put("c");
-        blockingQueue.put("d");
+        blockingQueue.put("a3");
+        blockingQueue.put("b3");
+        blockingQueue.put("c3");
+        blockingQueue.put("d3");
+        // blockingQueue.put("x3"); // 已满阻塞
+        blockingQueue.offer("x3", 5L, TimeUnit.SECONDS); // 超时取消阻塞，阻塞一定时长
         System.out.println(blockingQueue.take());
         System.out.println(blockingQueue.take());
         System.out.println(blockingQueue.take());
         System.out.println(blockingQueue.take());
+        // System.out.println(blockingQueue.take()); // 已空阻塞
     }
 
     private static void offerAndPoll(BlockingQueue<String> blockingQueue) {
-        System.out.println(blockingQueue.offer("a"));
-        System.out.println(blockingQueue.offer("b"));
-        System.out.println(blockingQueue.offer("c"));
-        System.out.println(blockingQueue.offer("e"));
+        System.out.println(blockingQueue.offer("a2"));
+        System.out.println(blockingQueue.offer("b2"));
+        System.out.println(blockingQueue.offer("c2"));
+        System.out.println(blockingQueue.offer("e2"));
+        // System.out.println(blockingQueue.offer("x2"));
         System.out.println(blockingQueue.peek());
+        System.out.println(blockingQueue.poll());
         System.out.println(blockingQueue.poll());
         System.out.println(blockingQueue.poll());
         System.out.println(blockingQueue.poll());
@@ -54,14 +59,16 @@ public class BlockingQueueDemo {
     }
 
     private static void addAndRemove(BlockingQueue<String> blockingQueue) {
-        System.out.println(blockingQueue.add("a"));
-        System.out.println(blockingQueue.add("b"));
-        System.out.println(blockingQueue.add("c"));
-        System.out.println(blockingQueue.add("e"));
+        System.out.println(blockingQueue.add("a1"));
+        System.out.println(blockingQueue.add("b1"));
+        System.out.println(blockingQueue.add("c1"));
+        System.out.println(blockingQueue.add("e1"));
+        // System.out.println(blockingQueue.add("x1"));
         System.out.println(blockingQueue.element());
         System.out.println(blockingQueue.remove());
         System.out.println(blockingQueue.remove());
         System.out.println(blockingQueue.remove());
         System.out.println(blockingQueue.remove());
+        // System.out.println(blockingQueue.remove());
     }
 }
