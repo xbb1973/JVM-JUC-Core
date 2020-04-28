@@ -11,6 +11,7 @@ public class GCOverheadDemo {
         try {
             while (true) {
                 list.add(String.valueOf(++i).intern());
+                new Object();
             }
         } catch (Exception e) {
             System.out.println("************i" + i);

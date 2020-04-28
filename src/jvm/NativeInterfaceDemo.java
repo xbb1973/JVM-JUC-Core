@@ -9,7 +9,7 @@ package jvm;
  */
 public class NativeInterfaceDemo {
     public static void main(String[] args) {
-        Throwable
+        // Throwable
         Thread thread = new Thread();
         thread.start(); // 实际实现为start0 private native void start0();
         thread.start(); // Exception in thread "main" java.lang.IllegalThreadStateException
