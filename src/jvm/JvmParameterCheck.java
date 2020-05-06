@@ -1,7 +1,5 @@
 package jvm;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * @author ：xbb
  * @date ：Created in 2020/5/3 10:26 上午
@@ -11,7 +9,18 @@ import java.util.concurrent.TimeUnit;
  */
 public class JvmParameterCheck {
     public static void main(String[] args) throws InterruptedException {
-        TimeUnit.SECONDS.sleep(Integer.MAX_VALUE);
+        while (true) {
+            new Object();
+        }
+        // TimeUnit.SECONDS.sleep(Integer.MAX_VALUE);
+
+        // [GC (Allocation Failure) [DefNew: 2431K->1K(2432K), 0.0030385 secs] 2543K->369K(7936K), 0.0030847 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+        //                              gc前新生代内存占用->gc后(young总大小)             gc前jvm堆内存占用->gc后堆(堆总大小)
+
+
+
+        // -Xms8m -Xmx8m -XX:+PrintGCDetails -XX:+UseSerialGC -XX:MetaspaceSize=128m -XX:MaxTenuringThreshold=10
+        //
         // 查看参数方案1
         // jps
         // jinfo -flags [pid]
@@ -30,6 +39,9 @@ public class JvmParameterCheck {
 
         // 修改
         // java -XX:+PrintFlagsFinal -XX:MetaspaceSize=21810376 xx.java
+
+        // jinfo -flag ThreadStackSize 1028
+        //         -XX:ThreadStackSize=1024
 
     }
 }

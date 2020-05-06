@@ -12,7 +12,19 @@ public class NativeInterfaceDemo {
         // Throwable
         Thread thread = new Thread();
         thread.start(); // 实际实现为start0 private native void start0();
-        thread.start(); // Exception in thread "main" java.lang.IllegalThreadStateException
+        // thread.start(); // Exception in thread "main" java.lang.IllegalThreadStateException
+
+
+        for (int i = 0; ; i++) {
+            new Thread(()->{
+                try {
+                    System.out.println(Thread.currentThread().getName());
+                    Thread.sleep(Integer.MAX_VALUE);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }, ""+i).start();
+        }
 
 
     }

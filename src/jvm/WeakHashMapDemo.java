@@ -34,6 +34,7 @@ public class WeakHashMapDemo {
         System.out.println(map);
 
         System.gc();
+        System.out.println(map.get(2));
         System.out.println(map + "\t" + map.size());
     }
 }

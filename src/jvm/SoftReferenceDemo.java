@@ -5,7 +5,7 @@ import java.lang.ref.SoftReference;
 public class SoftReferenceDemo {
     public static void main(String[] args) {
         softRef_Memory_Enough();
-        System.out.println("Not Enough");
+        System.out.println("Not Enough==============");
         softRef_Memory_NotEnough();
     }
 
@@ -14,7 +14,7 @@ public class SoftReferenceDemo {
         SoftReference<Object> softReference = new SoftReference<>(o1);
         System.out.println(o1);
         System.out.println(softReference.get());
-        System.out.println("===========");
+        System.out.println("GC===========");
         o1 = null;
         System.gc();
         System.out.println(o1);
@@ -26,7 +26,7 @@ public class SoftReferenceDemo {
         SoftReference<Object> softReference = new SoftReference<>(o1);
         System.out.println(o1);
         System.out.println(softReference.get());
-        System.out.println("===========");
+        System.out.println("GC===========");
         o1 = null;
         System.gc();
 

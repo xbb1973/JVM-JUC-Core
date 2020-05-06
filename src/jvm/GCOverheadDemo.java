@@ -9,8 +9,8 @@ public class GCOverheadDemo {
     Object instance = null;
 
     public static void main(String[] args) {
-        // autoGC();
-        referenceCountGC();
+        // referenceCountGC();
+        gcOverHead();
     }
 
     private static void referenceCountGC() {
@@ -23,7 +23,7 @@ public class GCOverheadDemo {
         System.gc();
     }
 
-    private static void autoGC() {
+    private static void gcOverHead() {
         int i = 0;
         List<String> list = new ArrayList<>();
         try {
