@@ -1,7 +1,6 @@
 package thread;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class ContainerNotSafeDemo {
     public static void main(String[] args) {
@@ -11,15 +10,15 @@ public class ContainerNotSafeDemo {
             
         }
         // myListNotSafe();
-        // listNotSafe();
+        listNotSafe();
         // setNoSafe();
         // mapNotSafe();
 
     }
 
     private static void mapNotSafe() {
-        //Map<String,String> map=new HashMap<>();
-        Map<String, String> map = new ConcurrentHashMap<>();
+        Map<String,String> map=new HashMap<>();
+        // Map<String, String> map = new ConcurrentHashMap<>();
         for (int i = 1; i <= 30; i++) {
             new Thread(() -> {
                 map.put(Thread.currentThread().getName(), UUID.randomUUID().toString().substring(0, 8));
@@ -29,6 +28,9 @@ public class ContainerNotSafeDemo {
     }
 
     private static void setNoSafe() {
+        // 在HashSet中，元素都存到HashMap键值对的Key上面，
+        // 而Value时有一个统一的值private static final Object PRESENT = new Object();，
+        // (定义一个虚拟的Object对象作为HashMap的value，将此对象定义为static final。)
         Set<String> set=new HashSet<>();
         // Set<String> set = new CopyOnWriteArraySet<>();
         for (int i = 1; i <= 100000; i++) {
@@ -51,7 +53,9 @@ public class ContainerNotSafeDemo {
         // 30个线程会出ConcurrentModificationException
         for (int i = 1; i <= 10000; i++) {
             new Thread(() -> {
-                list.add(UUID.randomUUID().toString().substring(0, 8));
+                // synchronized (ContainerNotSafeDemo.class){
+                    list.add(UUID.randomUUID().toString().substring(0, 8));
+                // }
                 // System.out.println(Thread.currentThread().getName() + "\t" + list);
             }, String.valueOf(i)).start();
         }

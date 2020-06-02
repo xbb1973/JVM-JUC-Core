@@ -22,11 +22,38 @@ public class SingletonDemo {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        for (int i = 0; i < 10000; i++) {
-            new Thread(() -> {
-                SingletonDemo.getInstance();
-            }, String.valueOf(i + 1)).start();
+        // for (int i = 0; i < 10000; i++) {
+        //     new Thread(() -> {
+        //         SingletonDemo.getInstance();
+        //     }, String.valueOf(i + 1)).start();
+        // }
+
+        int n = 1000;
+        for (int i = 0; i < n; i++) {
+            new Thread(()->{
+                SingletonTest.getInstance();
+            }).start();
         }
+    }
+}
+
+class SingletonTest {
+    // private volatile static SingletonTest singletonTest = null;
+    private static SingletonTest singletonTest = new SingletonTest();
+
+    SingletonTest() {
+        System.out.println("getInstance");
+    }
+
+    public static SingletonTest getInstance() {
+        // if (singletonTest == null) {
+        //     synchronized (SingletonTest.class){
+        //         if (singletonTest == null) {
+        //             singletonTest = new SingletonTest();
+        //         }
+        //     }
+        // }
+        return singletonTest;
     }
 }
 

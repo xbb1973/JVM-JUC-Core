@@ -22,7 +22,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ProdConsTradiDemo {
     public static void main(String[] args) {
         threadBasicLearning();
-        productorConsumerVersion1();
+        // productorConsumerVersion1();
 
         // 版本2至于版本1的提升，使用了lock代替synchronize
         // synchronize和lock有什么区别？用新的lock有什么好处？举例
@@ -40,10 +40,8 @@ public class ProdConsTradiDemo {
         //      lock通过Condition可以实现分组唤醒需要唤醒的线程们，精确唤醒。
         //      跳转至SyncAndReentrantLockDemo
         // differenceOfSyncAndLock();
-        productorConsumerVersion2();
-
-        productorConsumerVersion3();
-
+        // productorConsumerVersion2();
+        // productorConsumerVersion3();
     }
 
     private static void differenceOfSyncAndLock() {
@@ -291,8 +289,8 @@ class Customer implements Runnable {
 class TicketSeller implements Runnable {
     private int ticketNum = 100;
     private static Object obj = new Object();
-    private Lock lock = new ReentrantLock();
-
+    // 如果是非公平锁，会导致第一个线程thread一直持有锁
+    private Lock lock = new ReentrantLock(true);
 
     @Override
     public void run() {
@@ -305,8 +303,8 @@ class TicketSeller implements Runnable {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    System.out.println(Thread.currentThread().getName() + "/t" + "剩余库存" + ticketNum);
                     ticketNum--;
+                    System.out.println(Thread.currentThread().getName() + "/t" + "剩余库存" + ticketNum);
                     lock.unlock();
                 } else {
                     lock.unlock();
