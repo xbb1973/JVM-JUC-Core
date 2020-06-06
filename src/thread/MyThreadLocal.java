@@ -53,24 +53,25 @@ public class MyThreadLocal {
         for (int i = 0; i < count; i++) {
             new Thread(() -> {
                 System.out.println(myDefThreadLocal.get());
-                System.out.println(myDefThreadLocal);
-            }, "thread" + i).start();
-        }
-
-        for (int i = 0; i < count; i++) {
-            new Thread(() -> {
+                // System.out.println(myDefThreadLocal);
                 System.out.println(myDefThreadLocal2.get());
-                System.out.println(myDefThreadLocal2);
             }, "thread" + i).start();
         }
 
+        // for (int i = 0; i < count; i++) {
+        //     new Thread(() -> {
+        //         System.out.println(myDefThreadLocal2.get());
+        //         // System.out.println(myDefThreadLocal2);
+        //     }, "thread" + i).start();
+        // }
     }
 
 }
 
 class MyDefThreadLocal<T> {
     private static AtomicInteger atomicInteger = new AtomicInteger();
-    Integer threadLocalHash = atomicInteger.addAndGet(0x61c88647);
+    // 0x61c88647 散列更平均
+    private Integer threadLocalHash = atomicInteger.addAndGet(0x61c88647);
     private static HashMap<Thread, HashMap<Integer, Object>> threadHashMapHashMap = new HashMap<>();
 
     private synchronized static HashMap<Integer, Object> getMap() {
@@ -90,6 +91,7 @@ class MyDefThreadLocal<T> {
         if (!map.containsKey(this.threadLocalHash)) { // this是该对象
             map.put(this.threadLocalHash, initialValue());
         }
+        System.out.println(threadLocalHash);
         return (T) map.get(this.threadLocalHash);
     }
 
